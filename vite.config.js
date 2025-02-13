@@ -16,3 +16,5 @@ export default defineConfig({
     tsconfigPaths(),
   ],
 });
+
+console.log("Save");
