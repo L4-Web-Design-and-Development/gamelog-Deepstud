@@ -4,6 +4,7 @@ import { json } from "@remix-run/node";
 
 import { useLoaderData } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
+import Navbar from "app/components/navbar";
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,27 +27,24 @@ export default function Index() {
   console.log({ games });
   return (
     <div>
-      <div className="flex justify-center ">
-        <h1 className=" text-6xl font-bold m-auto">
-          Game <span className="text-blue-800">Log</span>!
-        </h1>
-      </div>
-
-      <div className="flex flex-wrap justify-evenly m-auto py-4 ">
-        {games.map((game) => (
-          <div key={game.id}>
-            <img
-              className=" max-h-14 max-w-auto"
-              src="/app/assets/png/field-game-background.png"
-              alt=""
-            />
-            <h2 className="flex wrap items-start justify-evenly">
-              {game.title}
-            </h2>
-            <h3 className="flex justify-center">£{game.price}</h3>
-          </div>
-        ))}
-      </div>
+      <Navbar />
+      <section>
+        <div className="flex flex-wrap justify-evenly m-auto py-4 ">
+          {games.map((game) => (
+            <div key={game.id}>
+              <img
+                className=" max-h-14 max-w-auto"
+                src="/app/assets/png/field-game-background.png"
+                alt=""
+              />
+              <h2 className="flex wrap items-start justify-evenly">
+                {game.title}
+              </h2>
+              <h3 className="flex justify-center">£{game.price}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
