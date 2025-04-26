@@ -25,14 +25,17 @@ export default function Index() {
 
   console.log({ games });
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div>
-        <h1 className="text-4xl font-bold">
+    <div>
+      <div className="flex justify-center ">
+        <h1 className=" text-6xl font-bold m-auto">
           Game <span className="text-blue-800">Log</span>!
         </h1>
+      </div>
+
+      <div className="flex flex-wrap justify-evenly m-auto py-4 ">
         {games.map((game) => (
           <div key={game.id}>
-            <h2>
+            <h2 className="flex wrap items-start justify-evenly">
               {game.title} £{game.price}
             </h2>
           </div>
