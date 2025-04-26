@@ -29,18 +29,19 @@ export default function Index() {
     <div>
       <Navbar />
       <section>
-        <div className="flex flex-wrap justify-evenly m-auto py-4 ">
+        <div className="flex flex-wrap justify-evenly gap-4 p-4">
           {games.map((game) => (
-            <div key={game.id}>
+            <div
+              key={game.id}
+              className="w-48 h-48 flex flex-col items-center justify-between p-2  "
+            >
               <img
-                className=" max-h-14 max-w-auto"
+                className="h-24 w-full object-cover rounded"
                 src="/app/assets/png/field-game-background.png"
-                alt=""
+                alt={game.title}
               />
-              <h2 className="flex wrap items-start justify-evenly">
-                {game.title}
-              </h2>
-              <h3 className="flex justify-center">£{game.price}</h3>
+              <h2 className="text-center font-semibold">{game.title}</h2>
+              <h3 className="text-center text-gray-700">£{game.price}</h3>
             </div>
           ))}
         </div>
