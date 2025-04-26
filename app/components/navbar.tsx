@@ -1,7 +1,3 @@
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import type { MetaFunction } from "@remix-run/node";
-
 export default function NavBar() {
   return (
     <nav className="flex items-center py-4 justify-between">
@@ -15,7 +11,7 @@ export default function NavBar() {
           Game <span className="text-blue-800">Log</span>!
         </h1>
       </div>
-      <ul className="flex space-x-4">
+      <ul className="flex  space-x-6 my-5">
         <li>Games</li>
         <li>About</li>
         <li>Online Journal</li>
