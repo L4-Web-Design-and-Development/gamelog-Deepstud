@@ -9,7 +9,7 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
+//Games
 model Game {
   id          String      @id @default(cuid())
   title       String
@@ -31,3 +31,19 @@ model Category {
   updatedAt   DateTime @updatedAt
   games       Game[]
   }
+  
+model User { 
+  id             String   @id @default(cuid())
+  username       String   @unique
+  favourite_game String?
+  posts          Post[]   
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String  @default("Empty")
+  content   String
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])  // Reference to User.id
+}

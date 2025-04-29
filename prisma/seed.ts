@@ -152,6 +152,16 @@ async function seed() {
     },
   ];
 
+  const users = [
+    {
+      username: "Dave",
+    },
+  ];
+
+  for (const user of users) {
+    await prisma.user.create({ data: user });
+  }
+
   for (const category of categories) {
     await prisma.category.create({ data: category });
   }

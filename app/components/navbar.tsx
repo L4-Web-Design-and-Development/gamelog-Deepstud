@@ -11,7 +11,7 @@ export default function NavBar() {
           Game <span className="text-blue-800">Log</span>!
         </h1>
       </div>
-      <ul className="flex  space-x-6 my-5">
+      <ul className="flex space-x-6 my-5">
         <li>Games</li>
         <li>About</li>
         <li>Online Journal</li>
