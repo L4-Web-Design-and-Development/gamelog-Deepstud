@@ -27,7 +27,6 @@ export default function Index() {
   console.log({ games });
   return (
     <div>
-      <Navbar />
       <section>
         <div className="flex flex-wrap justify-evenly gap-4 p-4">
           {games.map((game) => (

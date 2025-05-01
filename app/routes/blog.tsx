@@ -29,13 +29,12 @@ export async function loader() {
   return json({ posts });
 }
 
-export default function Journal() {
+export default function Blog() {
   const { posts } = useLoaderData<typeof loader>();
 
   console.log({ posts });
   return (
     <div>
-      <Navbar />
       <section>
         <div className="flex flex-wrap justify-evenly gap-4 p-4">
           {posts.map((post) => (
@@ -44,13 +43,13 @@ export default function Journal() {
               className="w-48 h-48 flex flex-col items-center justify-between p-2  "
             >
               <h1 className="font-bold">{post.title}</h1>
-              <div>
+              <div className="flex align-top">
                 <img
-                  className="flex align-top rounded-lg"
+                  className="flex align-top rounded-lg size-10"
                   src="/app/assets/png/avatar.png"
                   alt="Profile"
                 />
-                <h2 className="text-center font-semibold">
+                <h2 className="flex my-5 font-semibold">
                   {post.user.username}
                 </h2>
               </div>
