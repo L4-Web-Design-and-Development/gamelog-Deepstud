@@ -25,33 +25,33 @@ export default function Index() {
 
   console.log({ games });
   return (
-    <div className="flex flex-wrap justify-evenly gap-4 p-4">
+    <div className="flex flex-wrap justify-evenly my-auto py-4">
       {games.map((game) => (
         <div
           key={game.id}
-          className="w-48 h-48 flex flex-col items-center justify-between p-2  "
+          className="w-auto h-auto flex flex-col items-center justify-between p-2  "
         >
           <section>
             <img
-              className="h-24 w-full object-cover rounded"
+              className="h-48 w-full object-cover rounded"
               src="/app/assets/png/field-game-background.png"
               alt={game.title}
             />
           </section>
-          <div className=" flex ">
-            <section>
-              <h2 className="text-center font-semibold">{game.title}</h2>
-              <h3 className="text-center text-gray-700">£{game.price}</h3>
-            </section>
-            <section className="flex-col gap-20">
-              <button className="flex border-2 border-cyan-100 rounded-sm my-2">
-                Edit
-              </button>
-              <button className=" flex border-2 border-red-600 rounded-sm my-2">
-                Delete
-              </button>
-            </section>
-          </div>
+          <section className=" flex flex-col">
+            <h2 className="text-center font-semibold text-wrap">
+              {game.title}
+            </h2>
+            <h3 className="text-center text-gray-700">£{game.price}</h3>
+          </section>
+          <section className="  flex-col ml-10">
+            <button className="flex border-2 border-cyan-100 rounded-sm my-2">
+              Edit
+            </button>
+            <button className=" flex border-2 border-red-600 rounded-sm my-2">
+              Delete
+            </button>
+          </section>
         </div>
       ))}
     </div>

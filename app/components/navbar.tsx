@@ -11,8 +11,10 @@ export default function NavBar() {
           Game <span className="text-blue-800">Log</span>!
         </h1>
       </div>
-      <div className="flex gap-8">
-        <Link to="/add-games">Add Games</Link>
+      <div className="container flex gap-8 mx-auto justify-end text-lg">
+        <Link to="/add-games" className="whitespace-nowrap">
+          Add Games
+        </Link>
         <Link to="/blog">Blog</Link>
         <Link to="/about">About</Link>
       </div>
