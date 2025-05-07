@@ -5,8 +5,8 @@ import facebook from "~/assets/svg/facebook.svg";
 import instagram from "~/assets/svg/instagram.svg";
 export default function Footer() {
   return (
-    <div className="flex justify-between items-start flex-wrap p-6 ">
-      <div className="flex flex-col items-start space-y-4">
+    <div className="flex justify-between items-start flex-wrap p-6  ">
+      <div className="flex flex-col items-start space-y-4 m-1">
         <section>
           <Link to="/">
             <img className="h-10 w-auto" src={siteLogo} alt="Site Logo" />
@@ -26,7 +26,7 @@ export default function Footer() {
         </section>
       </div>
 
-      <div className="flex flex-wrap gap-8 justify-end">
+      <div className="flex flex-wrap gap-8 justify-center">
         <section className="flex flex-col">
           <h1 className="font-bold mb-1">Site</h1>
           <Link to="">Games</Link>
