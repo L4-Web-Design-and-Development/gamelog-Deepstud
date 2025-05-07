@@ -26,7 +26,7 @@ export default function Index() {
 
   console.log({ games });
   return (
-    <div className="flex flex-wrap justify-evenly my-auto py-4">
+    <div className="flex flex-wrap gap-4 selection:justify-start my-auto py-4">
       {games.map((game) => GameCard(game))}
     </div>
   );
