@@ -2,11 +2,11 @@ export default function GameCard(game) {
   return (
     <div
       key={game.id}
-      className="w-64 h-96 flex flex-col items-left justify-evenly p-1  rounded shadow-md "
+      className="w-120 h-96 flex flex-col items-left justify-evenly p-1  rounded shadow-md "
     >
       <section>
         <img
-          className="h-48 w-full object-cover rounded"
+          className="h-48 w-full object-cover  rounded"
           src="/app/assets/png/field-game-background.png"
           alt={game.title}
         />
