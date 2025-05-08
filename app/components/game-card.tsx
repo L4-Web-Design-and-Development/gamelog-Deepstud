@@ -2,7 +2,7 @@ export default function GameCard(game) {
   return (
     <div
       key={game.id}
-      className="w-120 h-96 flex flex-col items-left justify-evenly p-1  rounded shadow-md "
+      className=" flex flex-col items-left justify-start p-1  rounded shadow-md  w-96"
     >
       <section>
         <img
@@ -11,9 +11,9 @@ export default function GameCard(game) {
           alt={game.title}
         />
       </section>
-      <div className="flex justify-between items-start gap-4">
-        <section className="flex flex-col max-w-xs gap-2 ">
-          <h1 className="text-lg  font-semibold  ">{game.title}</h1>
+      <div className=" flex justify-between items-start gap-4">
+        <section className="flex flex-col gap-3 mx-2 my-3 ">
+          <h1 className="text-lg  font-semibold">{game.title}</h1>
           <h2 className="text-cyan-500">genres </h2>
           <h3 className=" text-gray-700">£{game.price}</h3>
         </section>
