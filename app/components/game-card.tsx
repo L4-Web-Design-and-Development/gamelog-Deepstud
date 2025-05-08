@@ -14,8 +14,10 @@ export default function GameCard(game) {
       <div className=" flex justify-between items-start gap-4">
         <section className="flex flex-col gap-3 mx-2 my-3 ">
           <h1 className="text-lg  font-semibold">{game.title}</h1>
-          <h2 className="text-cyan-500">genres </h2>
-          <h3 className=" text-gray-700">£{game.price}</h3>
+          <h2 className="text-cyan-500">
+            {game.category.title || "No category"}
+          </h2>
+          <h3 className=" text-gray-700">{game.releaseDate}</h3>
         </section>
         <section className="flex flex-col gap-2 ">
           <button className="border-2 border-cyan-100 rounded-lg my-2 p-2">

@@ -16,7 +16,18 @@ export const meta: MetaFunction = () => {
 export async function loader() {
   const prisma = new PrismaClient();
 
-  const games = await prisma.game.findMany();
+  const games = await prisma.game.findMany({
+    select: {
+      id: true,
+      title: true,
+      releaseDate: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
+    },
+  });
 
   return json({ games });
 }
