@@ -1,11 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-
-import { json } from "@remix-run/node";
-
-import { useLoaderData } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
-
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import GameCard from "~/components/game-card";
+import fallbackImage from "~/assets/svg/fallback_image.svg";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -21,6 +20,7 @@ export async function loader() {
       id: true,
       title: true,
       releaseDate: true,
+      imageUrl: true,
       category: {
         select: {
           title: true,
@@ -38,7 +38,15 @@ export default function Index() {
   console.log({ games });
   return (
     <div className="flex flex-wrap gap-4 selection:justify-start my-auto p-4 m-1">
-      {games.map((game) => GameCard(game))}
+      {games.map((game) => (
+        <GameCard
+          key={game.id}
+          title={game.title}
+          releaseDate={game.releaseDate}
+          genre={game.category?.title || "Unknown"}
+          imageUrl={game.imageUrl || fallbackImage}
+        />
+      ))}
     </div>
   );
 }

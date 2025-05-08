@@ -10,6 +10,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2017-03-03"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746700506/The_Legend_of_Zelda_Breath_of_The_Wild_Background_Image_i0keir.jpg",
     },
     {
       title: "The Witcher 3: Wild Hunt",
