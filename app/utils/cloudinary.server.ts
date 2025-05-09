@@ -9,7 +9,7 @@ cloudinary.config({
 export async function uploadImage(imageData: string) {
   try {
     const result = await cloudinary.uploader.upload(imageData, {
-      folder: "game-covers",
+      folder: "Gamelog/game-covers",
     });
     return result.secure_url;
   } catch (error) {
