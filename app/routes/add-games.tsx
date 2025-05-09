@@ -5,7 +5,6 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import ImageUploader from "~/components/ImageUploader";
 import { useForm } from "react-hook-form";
-
 export async function loader() {
   const prisma = new PrismaClient();
   const categories = await prisma.category.findMany({
@@ -126,11 +125,12 @@ export default function AddGame() {
                 {...register("price", {
                   required: "Price is required",
                   valueAsNumber: true,
-                  min: { value: 0.01, message: "Minimum price is 0.01" },
+                  min: { value: 0.0, message: "Minimum price 0" },
                 })}
                 name="price"
                 type="number"
                 step="0.01"
+                min="0"
                 className="w-full p-3 bg-gray-800 rounded-md"
               />
               {errors.price && (
@@ -145,6 +145,7 @@ export default function AddGame() {
               >
                 Rating
               </label>
+
               <input
                 {...register("rating", {
                   required: "Rating is required",
@@ -154,7 +155,8 @@ export default function AddGame() {
                 })}
                 name="rating"
                 type="number"
-                step="0.1"
+                step=".5"
+                min="0"
                 className="w-full p-3 bg-gray-800 rounded-md"
               />
               {errors.rating && (

@@ -13,10 +13,14 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.0",
     "@prisma/client": "^6.0.1",
     "@remix-run/node": "^2.15.1",
     "@remix-run/react": "^2.15.1",
     "@remix-run/serve": "^2.15.1",
+    "@smastrom/react-rating": "^1.5.0",
     "cloudinary": "^2.6.1",
     "game-log": "file:",
     "isbot": "^4.1.0",
