@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Form, Link, useLoaderData } from "@remix-run/react";
+import { useState, useRef } from "react";
+import { useLoaderData, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import ImageUploader from "~/components/ImageUploader";
+import { useForm } from "react-hook-form";
 
 export async function loader() {
   const prisma = new PrismaClient();
@@ -11,9 +12,7 @@ export async function loader() {
     select: { id: true, title: true },
     orderBy: { title: "asc" },
   });
-
-  prisma.$disconnect();
-
+  await prisma.$disconnect();
   return json({ categories });
 }
 
@@ -28,7 +27,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const categoryId = formData.get("categoryId") as string;
 
   const prisma = new PrismaClient();
-
   await prisma.game.create({
     data: {
       title,
@@ -40,18 +38,24 @@ export async function action({ request }: ActionFunctionArgs) {
       categoryId,
     },
   });
-
-  prisma.$disconnect();
-
+  await prisma.$disconnect();
   return redirect("/");
 }
 
 export default function AddGame() {
   const { categories } = useLoaderData<typeof loader>();
   const [imageUrl, setImageUrl] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleImageUploaded = (url: string) => {
-    setImageUrl(url);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = () => {
+    // Once validation passes, manually submit the form
+    formRef.current?.submit();
   };
 
   return (
@@ -61,114 +65,136 @@ export default function AddGame() {
       </h1>
 
       <div className="max-w-2xl mx-auto bg-gray-950 p-8 rounded-xl">
-        <Form method="post" className="space-y-6">
+        <form
+          ref={formRef}
+          method="post"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
           <input type="hidden" name="imageUrl" value={imageUrl} />
 
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium mb-2 text-slate-400"
+              className="block text-sm text-slate-400 mb-2"
             >
               Title
             </label>
             <input
-              type="text"
-              id="title"
+              {...register("title", { required: "Title is required" })}
               name="title"
-              required
-              className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              type="text"
+              className="w-full p-3 bg-gray-800 rounded-md"
             />
+            {errors.title && typeof errors.title.message === "string" && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
           </div>
 
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium mb-2 text-slate-400"
+              className="block text-sm text-slate-400 mb-2"
             >
               Description
             </label>
             <textarea
-              id="description"
+              {...register("description", {
+                required: "Description is required",
+              })}
               name="description"
-              required
               rows={4}
-              className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full p-3 bg-gray-800 rounded-md"
             ></textarea>
+            {errors.description && (
+              <p className="text-red-500">{errors.description.message}</p>
+            )}
           </div>
 
           <div className="mb-8">
-            <ImageUploader onImageUploaded={handleImageUploaded} />
+            <ImageUploader onImageUploaded={setImageUrl} />
           </div>
-
-          {/* Additional form fields for price, rating, etc. */}
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label
                 htmlFor="price"
-                className="block text-sm font-medium mb-2 text-slate-400"
+                className="block text-sm text-slate-400 mb-2"
               >
                 Price
               </label>
               <input
-                type="number"
-                id="price"
+                {...register("price", {
+                  required: "Price is required",
+                  valueAsNumber: true,
+                  min: { value: 0.01, message: "Minimum price is 0.01" },
+                })}
                 name="price"
+                type="number"
                 step="0.01"
-                min="0"
-                required
-                className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full p-3 bg-gray-800 rounded-md"
               />
+              {errors.price && (
+                <p className="text-red-500">{errors.price.message}</p>
+              )}
             </div>
 
             <div>
               <label
                 htmlFor="rating"
-                className="block text-sm font-medium mb-2 text-slate-400"
+                className="block text-sm text-slate-400 mb-2"
               >
                 Rating
               </label>
               <input
-                type="number"
-                id="rating"
+                {...register("rating", {
+                  required: "Rating is required",
+                  valueAsNumber: true,
+                  min: { value: 0, message: "Minimum is 0" },
+                  max: { value: 5, message: "Maximum is 5" },
+                })}
                 name="rating"
+                type="number"
                 step="0.1"
-                min="0"
-                max="5"
-                required
-                className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full p-3 bg-gray-800 rounded-md"
               />
+              {errors.rating && (
+                <p className="text-red-500">{errors.rating.message}</p>
+              )}
             </div>
           </div>
 
           <div>
             <label
               htmlFor="releaseDate"
-              className="block text-sm font-medium mb-2 text-slate-400"
+              className="block text-sm text-slate-400 mb-2"
             >
               Release Date
             </label>
             <input
-              type="date"
-              id="releaseDate"
+              {...register("releaseDate", {
+                required: "Release date is required",
+              })}
               name="releaseDate"
-              required
-              className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              type="date"
+              className="w-full p-3 bg-gray-800 rounded-md"
             />
+            {errors.releaseDate && (
+              <p className="text-red-500">{errors.releaseDate.message}</p>
+            )}
           </div>
 
           <div>
             <label
               htmlFor="categoryId"
-              className="block text-sm font-medium mb-2 text-slate-400"
+              className="block text-sm text-slate-400 mb-2"
             >
               Category
             </label>
             <select
-              id="categoryId"
+              {...register("categoryId", { required: "Category is required" })}
               name="categoryId"
-              required
-              className="w-full p-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full p-3 bg-gray-800 rounded-md"
             >
               <option value="">Select a category</option>
               {categories.map((category) => (
@@ -177,23 +203,26 @@ export default function AddGame() {
                 </option>
               ))}
             </select>
+            {errors.categoryId && (
+              <p className="text-red-500">{errors.categoryId.message}</p>
+            )}
           </div>
 
           <div className="flex justify-end gap-16">
             <Link
               to="/"
-              className=" text-red-300 border-2 border-red-300 py-3 px-6 rounded-md hover:bg-red-50/10 transition duration-200"
+              className="text-red-300 border-2 border-red-300 py-3 px-6 rounded-md hover:bg-red-50/10"
             >
               Cancel
             </Link>
             <button
               type="submit"
-              className=" bg-cyan-600 text-white py-3 px-6 rounded-md hover:bg-cyan-500 transition duration-200"
+              className="bg-cyan-600 text-white py-3 px-6 rounded-md hover:bg-cyan-500"
             >
               Add Game
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
