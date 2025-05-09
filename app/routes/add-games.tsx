@@ -81,8 +81,7 @@ export default function AddGame() {
               Title
             </label>
             <input
-              {...register("title", { required: "Title is required" })}
-              name="title"
+              {...register("title", { required: "Game title is required" })}
               type="text"
               className="w-full p-3 bg-gray-800 rounded-md"
             />
