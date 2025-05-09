@@ -33,18 +33,12 @@ model Category {
   games       Game[]
   }
   
-model User { 
-  id             String   @id @default(cuid())
-  username       String   @unique
-  favourite_game String?
-  posts          Post[]   
-}
 
-model Post {
+model BlogPosts {
   id        String   @id @default(cuid())
   title     String  @default("Empty")
+  user String 
   content   String
   createdAt DateTime @default(now())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])  // Reference to User.id
+  
 }
