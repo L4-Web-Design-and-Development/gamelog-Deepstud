@@ -3,43 +3,28 @@ import { useLoaderData, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-import ImageUploader from "~/components/ImageUploader";
+
 import { useForm } from "react-hook-form";
-export async function loader() {
-  const prisma = new PrismaClient();
-  const categories = await prisma.category.findMany({
-    select: { id: true, title: true },
-    orderBy: { title: "asc" },
-  });
-  await prisma.$disconnect();
-  return json({ categories });
-}
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
-  const price = parseFloat(formData.get("price") as string);
-  const rating = parseFloat(formData.get("rating") as string);
-  const releaseDate = new Date(formData.get("releaseDate") as string);
-  const imageUrl = formData.get("imageUrl") as string;
-  const categoryId = formData.get("categoryId") as string;
-
+  const content = formData.get("content") as string;
+  const user = "test";
   const prisma = new PrismaClient();
-  await prisma.blogPosts.create({
+  await prisma.blogPost.create({
     data: {
       title,
       content,
       user,
     },
   });
+
   await prisma.$disconnect();
   return redirect("/");
 }
 
 export default function AddBlogPost() {
-  const { categories } = useLoaderData<typeof loader>();
-  const [imageUrl, setImageUrl] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   const {
@@ -66,8 +51,6 @@ export default function AddBlogPost() {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
         >
-          <input type="hidden" name="imageUrl" value={imageUrl} />
-
           <div>
             <label
               htmlFor="title"
@@ -76,7 +59,7 @@ export default function AddBlogPost() {
               Title
             </label>
             <input
-              {...register("title", { required: "Game title is required" })}
+              {...register("title", { required: "Blog Post is required" })}
               type="text"
               className="w-full p-3 bg-gray-800 rounded-md"
             />
@@ -87,7 +70,7 @@ export default function AddBlogPost() {
 
           <div>
             <label
-              htmlFor="description"
+              htmlFor="content"
               className="block text-sm text-slate-400 mb-2"
             >
               Description
@@ -96,7 +79,7 @@ export default function AddBlogPost() {
               {...register("content", {
                 required: "content is required",
               })}
-              name="description"
+              name="content"
               rows={4}
               className="w-full p-3 bg-gray-800 rounded-md"
             ></textarea>
