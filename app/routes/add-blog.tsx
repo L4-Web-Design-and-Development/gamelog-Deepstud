@@ -1,16 +1,18 @@
 import { useState, useRef } from "react";
 import { useLoaderData, Link } from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
+import { json, redirect, LoaderFunction } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { getClerksUser } from "~/utils/getClerkUser";
+import { get, useForm } from "react-hook-form";
+import { getClerksUser } from "./getClerksUser";
+
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
-  const user = "aaa";
+  const user = formData.get("username") as string;
   const prisma = new PrismaClient();
+
   await prisma.blogPost.create({
     data: {
       title,
@@ -23,9 +25,19 @@ export async function action({ request }: ActionFunctionArgs) {
   return redirect("/");
 }
 
+export const loader: LoaderFunction = async (args) => {
+  const userData = await getClerksUser(args);
+
+  if (userData === "Unknowen") {
+    return redirect("/login"); // handle unauthenticated users
+  }
+
+  return json(userData);
+};
+
 export default function AddBlogPost() {
   const formRef = useRef<HTMLFormElement>(null);
-
+  const { user } = useLoaderData<typeof loader>();
   const {
     register,
     handleSubmit,
@@ -39,10 +51,7 @@ export default function AddBlogPost() {
 
   return (
     <div className="container mx-auto py-20 px-4">
-      <h1 className="font-bold text-5xl text-center mb-10">
-        Add <span className="text-cyan-400">Game</span>
-      </h1>
-
+      <h1 className="font-bold text-5xl text-center mb-10">Add blog post</h1>
       <div className="max-w-2xl mx-auto bg-gray-950 p-8 rounded-xl">
         <form
           ref={formRef}
@@ -50,6 +59,7 @@ export default function AddBlogPost() {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-6"
         >
+          <input type="hidden" name="username" value={user.username} />
           <div>
             <label
               htmlFor="title"
