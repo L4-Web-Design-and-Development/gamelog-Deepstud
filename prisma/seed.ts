@@ -10,6 +10,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2017-03-03"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746700506/The_Legend_of_Zelda_Breath_of_The_Wild_Background_Image_i0keir.jpg",
     },
     {
       title: "The Witcher 3: Wild Hunt",
@@ -86,6 +88,100 @@ async function seed() {
     await prisma.game.create({ data: game });
   }
 
+  console.log("👾 Games created successfully");
+
+  const categories = [
+    {
+      title: "Action",
+
+      description:
+        "Games that require quick reflexes and hand-eye coordination.",
+    },
+
+    {
+      title: "Adventure",
+
+      description: "Games that involve exploration and puzzle-solving.",
+    },
+
+    {
+      title: "RPG",
+
+      description: "Games that focus on character development and story.",
+    },
+
+    {
+      title: "Simulation",
+
+      description: "Games that simulate real-world activities or systems.",
+    },
+
+    {
+      title: "Strategy",
+
+      description: "Games that require strategic thinking and planning.",
+    },
+
+    {
+      title: "Puzzle",
+
+      description:
+        "Games that challenge players with logic and problem-solving.",
+    },
+
+    {
+      title: "Sports",
+
+      description: "Games that simulate sports or physical activities.",
+    },
+
+    {
+      title: "Multiplayer",
+
+      description: "Games that can be played with multiple players.",
+    },
+
+    {
+      title: "Indie",
+
+      description: "Games developed by independent studios or individuals.",
+    },
+
+    {
+      title: "Horror",
+
+      description: "Games that aim to scare or unsettle players.",
+    },
+  ];
+
+  for (const category of categories) {
+    await prisma.category.create({ data: category });
+  }
+  console.log("🎮 Categories created successfully");
+  console.log("🔗 Linking each game to a category");
+
+  // Fetch games from the database
+
+  const dbGames = await prisma.game.findMany();
+
+  // Fetch categories from the database
+
+  const dbCategories = await prisma.category.findMany();
+
+  // Link each game to a category
+
+  for (const game of dbGames) {
+    const category =
+      dbCategories[Math.floor(Math.random() * dbCategories.length)];
+
+    await prisma.game.update({
+      where: { id: game.id },
+
+      data: { categoryId: category.id },
+    });
+  }
+
+  console.log("🔗 Games and categories linked successfully");
   console.log("Seed data created successfully");
 }
 
