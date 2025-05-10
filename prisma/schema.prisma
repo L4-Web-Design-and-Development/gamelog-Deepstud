@@ -34,11 +34,11 @@ model Category {
   }
   
 
-model BlogPosts {
+model BlogPost {
   id        String   @id @default(cuid())
-  title     String  @default("Empty")
-  user String 
+  title     String
   content   String
   createdAt DateTime @default(now())
-  
+  user      String
 }
+

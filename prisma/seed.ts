@@ -157,7 +157,6 @@ async function seed() {
   for (const category of categories) {
     await prisma.category.create({ data: category });
   }
-
   console.log("🎮 Categories created successfully");
   console.log("🔗 Linking each game to a category");
 
@@ -184,6 +183,18 @@ async function seed() {
 
   console.log("🔗 Games and categories linked successfully");
   console.log("Seed data created successfully");
+
+  const blogPosts = [
+    {
+      title: "Cool Game",
+      content: "super fun and cool game",
+      user: "Dave Hedgehog",
+    },
+  ];
+
+  for (const post of blogPosts) {
+    await prisma.blogPost.create({ data: post });
+  }
 }
 
 seed()
