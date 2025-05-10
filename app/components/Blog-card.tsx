@@ -12,16 +12,13 @@ export default function BlogCard(props: BlogCardProps) {
       <div className=" flex justify-between items-start gap-4">
         <section className="flex flex-col gap-3 mx-2 my-3 ">
           <h1 className="text-lg  font-semibold">{props.title}</h1>
+          <h2 className="text-lg  font-semibold">{props.Account}</h2>
+          <section>
+            <p> {props.content} </p>
+          </section>
           <h3 className=" text-gray-700">{formattedDate}</h3>
         </section>
-        <section className="flex flex-col gap-2 ">
-          <button className="border-2 border-cyan-100 rounded-lg my-2 p-2">
-            Edit
-          </button>
-          <button className=" border-2 border-red-600 rounded-md my-2 p-2">
-            Delete
-          </button>
-        </section>
+        <section className="flex flex-col gap-2 "></section>
       </div>
     </div>
   );
