@@ -40,5 +40,6 @@ model BlogPost {
   content   String
   createdAt DateTime @default(now())
   user      String
+  userProfileImage String  @default("https://res.cloudinary.com/dducfnlfu/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1746904701/userProfile_hmemyy.png")
 }
 

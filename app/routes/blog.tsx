@@ -24,6 +24,7 @@ export default function Blog() {
           releaseDate={blogPost.createdAt}
           Account={blogPost.user}
           content={blogPost.content}
+          profileImage={blogPost.userProfileImage}
         />
       ))}
     </div>

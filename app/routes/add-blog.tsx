@@ -11,6 +11,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const user = formData.get("username") as string;
+  const userProfileImage = formData.get("profile") as string;
   const prisma = new PrismaClient();
 
   await prisma.blogPost.create({
@@ -18,6 +19,7 @@ export async function action({ request }: ActionFunctionArgs) {
       title,
       content,
       user,
+      userProfileImage,
     },
   });
   await prisma.$disconnect();
@@ -60,6 +62,7 @@ export default function AddBlogPost() {
           className="space-y-6"
         >
           <input type="hidden" name="username" value={user.username} />
+          <input type="hidden" name="profile" value={user.imageUrl} />
           <div>
             <label
               htmlFor="title"
@@ -108,7 +111,7 @@ export default function AddBlogPost() {
               type="submit"
               className="bg-cyan-600 text-white py-3 px-6 rounded-md hover:bg-cyan-500"
             >
-              Add Game
+              Add Post
             </button>
           </div>
         </form>
