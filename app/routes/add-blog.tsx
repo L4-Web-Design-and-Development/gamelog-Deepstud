@@ -19,7 +19,6 @@ export async function action({ request }: ActionFunctionArgs) {
       user,
     },
   });
-
   await prisma.$disconnect();
   return redirect("/");
 }
