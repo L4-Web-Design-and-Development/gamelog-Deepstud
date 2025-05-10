@@ -16,7 +16,7 @@ export default function Blog() {
 
   console.log({ blogPost });
   return (
-    <div className="flex flex-wrap gap-4 selection:justify-start my-auto p-4 m-1">
+    <div className="flex flex-wrap gap-4 selection:justify-start my-auto p-4 m-1 ">
       {blogPost.map((blogPost) => (
         <BlogCard
           key={blogPost.id}

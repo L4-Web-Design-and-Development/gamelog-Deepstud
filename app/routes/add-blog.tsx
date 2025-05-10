@@ -3,14 +3,13 @@ import { useLoaderData, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-
 import { useForm } from "react-hook-form";
-
+import { getClerksUser } from "~/utils/getClerkUser";
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
-  const user = "test";
+  const user = "aaa";
   const prisma = new PrismaClient();
   await prisma.blogPost.create({
     data: {
@@ -20,6 +19,7 @@ export async function action({ request }: ActionFunctionArgs) {
     },
   });
   await prisma.$disconnect();
+
   return redirect("/");
 }
 
