@@ -6,9 +6,8 @@ export const getClerksUser: LoaderFunction = async (args) => {
   // Use `getAuth()` to retrieve the user's ID
   const { userId } = await getAuth(args);
 
-  // If there is no userId, then redirect to sign-in route
   if (!userId) {
-    return "Unknowen";
+    return redirect("/sign-in?redirect_url=" + args.request.url);
   }
 
   // Initialize the Backend SDK and get the user's full `Backend User` object
