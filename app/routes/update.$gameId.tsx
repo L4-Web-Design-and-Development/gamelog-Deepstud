@@ -6,10 +6,13 @@ import { PrismaClient } from "@prisma/client";
 import ImageUploader from "~/components/ImageUploader";
 import { useForm } from "react-hook-form";
 import { LoaderFunctionArgs } from "@remix-run/node";
-
+import { useLoaderData } from "@remix-run/react";
 export async function loader({ params }: LoaderFunctionArgs) {
   const prisma = new PrismaClient();
-
+  const categories = await prisma.category.findMany({
+    select: { id: true, title: true },
+    orderBy: { title: "asc" },
+  });
   try {
     const game = await prisma.game.findUnique({
       where: {
@@ -17,11 +20,17 @@ export async function loader({ params }: LoaderFunctionArgs) {
       },
       select: {
         title: true,
-        createdAt: true,
+
+        description: true,
+        price: true,
+        rating: true,
+        releaseDate: true,
+        imageUrl: true,
+        categoryId: true,
       },
     });
 
-    return json({ game });
+    return json({ game, categories });
   } finally {
     await prisma.$disconnect();
   }
@@ -58,15 +67,23 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function UpdateGame() {
-  // const { categories } = useLoaderData<typeof loader>();
-  const [imageUrl, setImageUrl] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-
+  const { categories, game } = useLoaderData<typeof loader>();
+  const [imageUrl, setImageUrl] = useState(game?.imageUrl || "");
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: game?.title || "",
+      description: game?.description || "",
+      price: game?.price || 0,
+      rating: game?.rating || 0,
+      releaseDate: game?.releaseDate?.slice(0, 10) || "", // format to yyyy-mm-dd
+      categoryId: game?.categoryId || "",
+    },
+  });
 
   const onSubmit = () => {
     // Once validation passes, manually submit the form
@@ -76,7 +93,7 @@ export default function UpdateGame() {
   return (
     <div className="container mx-auto py-20 px-4">
       <h1 className="font-bold text-5xl text-center mb-10">
-        Add <span className="text-cyan-400">Game</span>
+        Update <span className="text-cyan-400">Game</span>
       </h1>
 
       <div className="max-w-2xl mx-auto bg-gray-950 p-8 rounded-xl">
@@ -126,7 +143,16 @@ export default function UpdateGame() {
               </p>
             )}
           </div>
-
+          {imageUrl && (
+            <div className="mb-8">
+              <p className="text-slate-400 mb-2">Current Image:</p>
+              <img
+                src={imageUrl}
+                alt="Current game"
+                className="w-full h-48 object-cover rounded"
+              />
+            </div>
+          )}
           <div className="mb-8">
             <ImageUploader onImageUploaded={setImageUrl} />
           </div>
@@ -205,6 +231,32 @@ export default function UpdateGame() {
             )}
           </div>
 
+          <div>
+            <label
+              htmlFor="categoryId"
+              className="block text-sm text-slate-400 mb-2"
+            >
+              Category
+            </label>
+            <select
+              {...register("categoryId", { required: "Category is required" })}
+              name="categoryId"
+              className="w-full p-3 bg-gray-800 rounded-md"
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
+            {errors.categoryId && (
+              <p className="text-red-500">
+                {String(errors.categoryId.message)}
+              </p>
+            )}
+          </div>
+
           <div className="flex justify-end gap-16">
             <Link
               to="/"
@@ -216,7 +268,7 @@ export default function UpdateGame() {
               type="submit"
               className="bg-cyan-600 text-white py-3 px-6 rounded-md hover:bg-cyan-500"
             >
-              Add Game
+              Update Game
             </button>
           </div>
         </form>

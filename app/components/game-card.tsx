@@ -10,7 +10,7 @@ export default function GameCard(props: GameCardProps) {
   const formattedDate = props.releaseDate.slice(0, 10);
   const navigate = useNavigate();
   const handleEdit = () => {
-    navigate(`/games/update/${props.gameId}`);
+    navigate(`/update/${props.gameId}`);
   };
 
   return (
@@ -35,9 +35,22 @@ export default function GameCard(props: GameCardProps) {
           >
             Edit
           </button>
-          <button className=" border-2 border-red-600 rounded-md my-2 p-2">
-            Delete
-          </button>
+          <form
+            method="post"
+            action={`/delete/${props.gameId}`}
+            onSubmit={(e) => {
+              if (!confirm("Are you sure you want to delete this game?")) {
+                e.preventDefault();
+              }
+            }}
+          >
+            <button
+              type="submit"
+              className="border-2 border-red-600 rounded-md my-2 p-2"
+            >
+              Delete
+            </button>
+          </form>
         </section>
       </div>
     </div>
