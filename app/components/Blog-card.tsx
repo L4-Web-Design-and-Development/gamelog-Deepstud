@@ -27,7 +27,7 @@ export default function BlogCard(props: BlogCardProps) {
       </section>
 
       <section>
-        <p className="text-lg text-center text-gray-800 bg-white rounded-full m-5">
+        <p className=" text-lg text-center text-gray-800 bg-white rounded-xl m-5 p-5">
           {props.content}
         </p>
       </section>

@@ -20,6 +20,8 @@ async function seed() {
       price: 39.99,
       rating: 4.8,
       releaseDate: new Date("2015-05-19"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987545/Witcher3_tw3vkh.jpg",
     },
     {
       title: "Red Dead Redemption 2",
@@ -27,6 +29,8 @@ async function seed() {
       price: 59.99,
       rating: 4.7,
       releaseDate: new Date("2018-10-26"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987715/RedDead_dgmil2.jpg",
     },
     {
       title: "God of War",
@@ -34,6 +38,8 @@ async function seed() {
       price: 49.99,
       rating: 4.9,
       releaseDate: new Date("2018-04-20"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987797/GodOfWar_hzewmg.jpg",
     },
     {
       title: "Minecraft",
@@ -42,6 +48,8 @@ async function seed() {
       price: 26.95,
       rating: 4.8,
       releaseDate: new Date("2011-11-18"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987797/GodOfWar_hzewmg.jpg",
     },
     {
       title: "Fortnite",
@@ -50,6 +58,8 @@ async function seed() {
       price: 0.0,
       rating: 4.5,
       releaseDate: new Date("2017-07-25"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988026/Fortnite_tcb5zj.jpg",
     },
     {
       title: "Cyberpunk 2077",
@@ -57,6 +67,8 @@ async function seed() {
       price: 59.99,
       rating: 4.0,
       releaseDate: new Date("2020-12-10"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988146/Cyberpunk_2077_qefmsi.jpg",
     },
     {
       title: "Among Us",
@@ -65,6 +77,8 @@ async function seed() {
       price: 4.99,
       rating: 4.4,
       releaseDate: new Date("2018-06-15"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988217/Among_Us_w7iuyq.jpg",
     },
     {
       title: "Animal Crossing: New Horizons",
@@ -73,6 +87,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2020-03-20"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988326/Animal_Crossing_New_Horizons_g68epa.jpg",
     },
     {
       title: "Hades",
@@ -81,6 +97,8 @@ async function seed() {
       price: 24.99,
       rating: 4.9,
       releaseDate: new Date("2020-09-17"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988459/Hades_zsaw9i.jpg",
     },
   ];
 

@@ -10,12 +10,30 @@ export default function BlogToolBar() {
         </Link>
       </div>
       <div className="flex gap-4 items-center">
+        {/*This tells clerk auth what to do if a user is  signed out */}
         <SignedOut>
-          <p>Sign in now to create a post! </p>
-          <SignInButton />
+          <SignInButton
+            mode="modal"
+            appearance={{
+              elements: {
+                card: "bg-white shadow-lg rounded-lg p-6",
+                formButtonPrimary:
+                  "bg-cyan-400 hover:bg-slate-400 text-white text-sm px-4 py-2 rounded",
+              },
+            }}
+          >
+            <button className="bg-slate-400 hover:bg-cyan-400 text-white text-sm px-4 py-2 rounded">
+              Sign In
+            </button>
+          </SignInButton>
         </SignedOut>
+        {/*This tells clerk auth what to do if a user is  signed in */}
+
         <SignedIn>
-          <Link to="/add-blog" className="text-white hover:text-blue-600">
+          <Link
+            to="/add-blog"
+            className="font-bold text-white hover:text-blue-600 border-cyan-400 bg-cyan-400 border-2 p-3 rounded-lg"
+          >
             New Post
           </Link>
           <p>Account: </p>
