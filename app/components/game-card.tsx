@@ -1,11 +1,18 @@
+import { useNavigate } from "@remix-run/react";
 interface GameCardProps {
   title: string;
   releaseDate: string;
   genre: string;
   imageUrl: string;
+  gameId: string;
 }
 export default function GameCard(props: GameCardProps) {
   const formattedDate = props.releaseDate.slice(0, 10);
+  const navigate = useNavigate();
+  const handleEdit = () => {
+    navigate(`/games/update/${props.gameId}`);
+  };
+
   return (
     <div className=" flex flex-col items-left justify-start p-1  rounded shadow-md  w-96">
       <section>
@@ -22,7 +29,10 @@ export default function GameCard(props: GameCardProps) {
           <h3 className=" text-gray-700">{formattedDate}</h3>
         </section>
         <section className="flex flex-col gap-2 ">
-          <button className="border-2 border-cyan-100 rounded-lg my-2 p-2">
+          <button
+            onClick={handleEdit}
+            className="border-2 border-cyan-100 rounded-lg my-2 p-2"
+          >
             Edit
           </button>
           <button className=" border-2 border-red-600 rounded-md my-2 p-2">

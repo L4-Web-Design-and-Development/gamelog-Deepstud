@@ -45,6 +45,7 @@ export default function Index() {
           releaseDate={game.releaseDate}
           genre={game.category?.title || "Unknown"}
           imageUrl={game.imageUrl || fallbackImage}
+          gameId={game.id}
         />
       ))}
     </div>
