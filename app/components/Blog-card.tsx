@@ -9,19 +9,28 @@ interface BlogCardProps {
 export default function BlogCard(props: BlogCardProps) {
   const formattedDate = props.releaseDate.slice(0, 10);
   return (
-    <div className=" flex flex-col items-left justify-start p-1  rounded shadow-md  w-96">
-      <div className=" flex justify-between items-start gap-4">
-        <section className="flex flex-col gap-3 mx-2 my-3 ">
-          <h1 className="text-lg  font-semibold">{props.title}</h1>
-          <img src={props.profileImage} alt="Profile" />
-          <h2 className="text-lg  font-semibold">{props.Account}</h2>
-          <section>
-            <p> {props.content} </p>
-          </section>
-          <h3 className=" text-gray-700">{formattedDate}</h3>
-        </section>
-        <section className="flex flex-col gap-2 "></section>
-      </div>
+    <div className="flex flex-col w-96 p-4 rounded-lg border-2 border-cyan-400">
+      <section>
+        <h1 className="text-xl font-bold text-center">{props.title}</h1>
+      </section>
+
+      <section className="flex items-center space-x-3 bg-slate-400 m-3 p-4 rounded-xl">
+        <img
+          src={props.profileImage}
+          className="w-10 h-10 rounded-full object-cover"
+          alt="Profile"
+        />
+        <div>
+          <h2 className="text-sm font-semibold">By {props.Account}</h2>
+          <p className="text-xs text-gray-500">{formattedDate}</p>
+        </div>
+      </section>
+
+      <section>
+        <p className="text-lg text-center text-gray-800 bg-white rounded-full m-5">
+          {props.content}
+        </p>
+      </section>
     </div>
   );
 }

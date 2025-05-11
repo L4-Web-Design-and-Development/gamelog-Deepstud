@@ -3,7 +3,7 @@ import { Link } from "@remix-run/react";
 
 export default function BlogToolBar() {
   return (
-    <nav className="  px-4 py-3 flex justify-between items-center">
+    <nav className=" m-4 px-4 py-3 flex justify-between items-center">
       <div className="text-xl font-bold">
         <Link to="/blog" className="text-blue-600">
           Gamelog <span className="text-white">Blog posts</span>
