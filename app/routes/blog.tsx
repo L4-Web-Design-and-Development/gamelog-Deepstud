@@ -2,7 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { json } from "@remix-run/node";
 import BlogCard from "~/components/Blog-card";
 import { useLoaderData } from "@remix-run/react";
-
+import BlogToolBar from "~/components/blog-tool-bar";
+//Loads the blogPost table
 export async function loader() {
   const prisma = new PrismaClient();
 
@@ -16,7 +17,8 @@ export default function Blog() {
 
   console.log({ blogPost });
   return (
-    <div className="flex flex-wrap gap-4 selection:justify-start my-auto p-4 m-1 ">
+    <div className="min-h-screen ">
+      <BlogToolBar />
       {blogPost.map((blogPost) => (
         <BlogCard
           key={blogPost.id}

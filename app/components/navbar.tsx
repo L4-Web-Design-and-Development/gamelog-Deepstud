@@ -1,6 +1,5 @@
 import siteLogo from "~/assets/svg/gamelog-logo.svg";
 import { Link } from "@remix-run/react";
-import { UserButton } from "@clerk/clerk-react";
 export default function NavBar() {
   return (
     <nav className="w-full flex items-start justify-between py-8 px-8">

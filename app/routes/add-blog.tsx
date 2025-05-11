@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useLoaderData, Link } from "@remix-run/react";
 import { json, redirect, LoaderFunction } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
-import { get, useForm } from "react-hook-form";
-import { getClerksUser } from "./getClerksUser";
+import { useForm } from "react-hook-form";
+import { getClerksUser } from "./api.getClerksUser";
 
+//Prisma export to blogPost table table
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;
@@ -27,11 +28,12 @@ export async function action({ request }: ActionFunctionArgs) {
   return redirect("/");
 }
 
+//User information from Clerks auth
 export const loader: LoaderFunction = async (args) => {
   const userData = await getClerksUser(args);
 
-  if (userData === "Unknowen") {
-    return redirect("/login"); // handle unauthenticated users
+  if (userData === "Unknown") {
+    return redirect("/sign-in?redirect_url=" + args.request.url);
   }
 
   return json(userData);
@@ -102,7 +104,7 @@ export default function AddBlogPost() {
 
           <div className="flex justify-end gap-16">
             <Link
-              to="/"
+              to="/blog"
               className="text-red-300 border-2 border-red-300 py-3 px-6 rounded-md hover:bg-red-50/10"
             >
               Cancel

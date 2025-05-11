@@ -5,6 +5,8 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import ImageUploader from "~/components/ImageUploader";
 import { useForm } from "react-hook-form";
+
+//Loads game categories
 export async function loader() {
   const prisma = new PrismaClient();
   const categories = await prisma.category.findMany({
@@ -15,6 +17,7 @@ export async function loader() {
   return json({ categories });
 }
 
+//Creates a entire in the game table
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;
@@ -105,7 +108,9 @@ export default function AddGame() {
               className="w-full p-3 bg-gray-800 rounded-md"
             ></textarea>
             {errors.description && (
-              <p className="text-red-500">{errors.description.message}</p>
+              <p className="text-red-500">
+                {String(errors.description.message)} ===
+              </p>
             )}
           </div>
 
@@ -134,7 +139,7 @@ export default function AddGame() {
                 className="w-full p-3 bg-gray-800 rounded-md"
               />
               {errors.price && (
-                <p className="text-red-500">{errors.price.message}</p>
+                <p className="text-red-500">{String(errors.price.message)}</p>
               )}
             </div>
 
@@ -160,7 +165,7 @@ export default function AddGame() {
                 className="w-full p-3 bg-gray-800 rounded-md"
               />
               {errors.rating && (
-                <p className="text-red-500">{errors.rating.message}</p>
+                <p className="text-red-500">{String(errors.rating.message)}</p>
               )}
             </div>
           </div>
@@ -181,7 +186,9 @@ export default function AddGame() {
               className="w-full p-3 bg-gray-800 rounded-md"
             />
             {errors.releaseDate && (
-              <p className="text-red-500">{errors.releaseDate.message}</p>
+              <p className="text-red-500">
+                {String(errors.releaseDate.message)}
+              </p>
             )}
           </div>
 
@@ -205,7 +212,9 @@ export default function AddGame() {
               ))}
             </select>
             {errors.categoryId && (
-              <p className="text-red-500">{errors.categoryId.message}</p>
+              <p className="text-red-500">
+                {String(errors.categoryId.message)}
+              </p>
             )}
           </div>
 
