@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
   });
   await prisma.$disconnect();
 
-  return redirect("/");
+  return redirect("/blog");
 }
 
 //User information from Clerks auth
@@ -97,8 +97,8 @@ export default function AddBlogPost() {
               rows={4}
               className="w-full p-3 bg-gray-800 rounded-md"
             ></textarea>
-            {errors.description && (
-              <p className="text-red-500">{errors.description.message}</p>
+            {errors.content && typeof errors.content.message === "string" && (
+              <p className="text-red-500">{errors.content.message}</p>
             )}
           </div>
 

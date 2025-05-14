@@ -11,7 +11,7 @@ export default function HeroImage() {
             Journey With <br />
             Easy
           </h1>
-          <button className="border-2 border-cyan-400 hover:bg-blue-700 text-white font-bold   py-2 px-4 rounded">
+          <button className="border-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold   py-2 px-4 rounded">
             Get Started
           </button>
         </div>

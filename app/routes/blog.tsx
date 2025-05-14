@@ -19,16 +19,18 @@ export default function Blog() {
   return (
     <div className="min-h-screen ">
       <BlogToolBar />
-      {blogPost.map((blogPost) => (
-        <BlogCard
-          key={blogPost.id}
-          title={blogPost.title}
-          releaseDate={blogPost.createdAt}
-          Account={blogPost.user}
-          content={blogPost.content}
-          profileImage={blogPost.userProfileImage}
-        />
-      ))}
+      <div className="flex flex-wrap justify-start gap-4">
+        {blogPost.map((blogPost) => (
+          <BlogCard
+            key={blogPost.id}
+            title={blogPost.title}
+            releaseDate={blogPost.createdAt}
+            Account={blogPost.user}
+            content={blogPost.content}
+            profileImage={blogPost.userProfileImage}
+          />
+        ))}
+      </div>
     </div>
   );
 }

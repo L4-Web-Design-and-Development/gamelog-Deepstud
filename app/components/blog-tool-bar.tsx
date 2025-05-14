@@ -32,7 +32,7 @@ export default function BlogToolBar() {
         <SignedIn>
           <Link
             to="/add-blog"
-            className="font-bold text-white hover:text-blue-600 border-cyan-400 bg-cyan-400 border-2 p-3 rounded-lg"
+            className="font-bold text-white bg-cyan-600 hover:bg-cyan-500  p-3 rounded-lg"
           >
             New Post
           </Link>
