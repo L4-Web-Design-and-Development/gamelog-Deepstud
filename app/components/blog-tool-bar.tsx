@@ -18,7 +18,7 @@ export default function BlogToolBar() {
               elements: {
                 card: "bg-white shadow-lg rounded-lg p-6",
                 formButtonPrimary:
-                  "bg-cyan-400 hover:bg-slate-400 text-white text-sm px-4 py-2 rounded",
+                  "bg-cyan-600 hover:bg-cyan-500 text-white text-sm px-4 py-2 rounded",
               },
             }}
           >

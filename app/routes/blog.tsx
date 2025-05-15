@@ -19,7 +19,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen ">
       <BlogToolBar />
-      <div className="flex flex-wrap justify-start gap-4">
+      <div className="px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {blogPost.map((blogPost) => (
           <BlogCard
             key={blogPost.id}

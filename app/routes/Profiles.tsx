@@ -1,6 +1,6 @@
 import { json, LoaderFunction, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getClerksUser } from "~/routes/api.getClerksUser";
+import { getClerksUser } from "~/utils/api.getClerksUser";
 
 export const loader: LoaderFunction = async (args) => {
   const userData = await getClerksUser(args);

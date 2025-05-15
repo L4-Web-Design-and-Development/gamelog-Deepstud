@@ -7,8 +7,8 @@ import fallbackImage from "~/assets/svg/fallback_image.svg";
 import HeroImage from "~/components/heroImage";
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Gamelog" },
+    { name: "description", content: "Welcome to Gamelog!" },
   ];
 };
 

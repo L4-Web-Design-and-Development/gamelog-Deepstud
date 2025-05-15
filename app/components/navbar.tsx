@@ -7,9 +7,6 @@ export default function NavBar() {
         <Link to="/">
           <img className="h-10 w-auto mr-4" src={siteLogo} alt="logo" />
         </Link>
-        <h1 className="text-5xl font-bold">
-          Game <span className="text-blue-800">Log</span>!
-        </h1>
       </section>
       <section className="flex gap-8 text-center text-lg justify-end">
         <Link to="/add-games" className="whitespace-nowrap">

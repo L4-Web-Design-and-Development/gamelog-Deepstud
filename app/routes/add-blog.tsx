@@ -4,7 +4,7 @@ import { json, redirect, LoaderFunction } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { getClerksUser } from "./api.getClerksUser";
+import { getClerksUser } from "../utils/api.getClerksUser";
 
 //Prisma export to blogPost table table
 export async function action({ request }: ActionFunctionArgs) {
