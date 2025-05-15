@@ -10,6 +10,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2017-03-03"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746700506/The_Legend_of_Zelda_Breath_of_The_Wild_Background_Image_i0keir.jpg",
     },
     {
       title: "The Witcher 3: Wild Hunt",
@@ -18,6 +20,8 @@ async function seed() {
       price: 39.99,
       rating: 4.8,
       releaseDate: new Date("2015-05-19"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987545/Witcher3_tw3vkh.jpg",
     },
     {
       title: "Red Dead Redemption 2",
@@ -25,6 +29,8 @@ async function seed() {
       price: 59.99,
       rating: 4.7,
       releaseDate: new Date("2018-10-26"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987715/RedDead_dgmil2.jpg",
     },
     {
       title: "God of War",
@@ -32,6 +38,8 @@ async function seed() {
       price: 49.99,
       rating: 4.9,
       releaseDate: new Date("2018-04-20"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987797/GodOfWar_hzewmg.jpg",
     },
     {
       title: "Minecraft",
@@ -40,6 +48,8 @@ async function seed() {
       price: 26.95,
       rating: 4.8,
       releaseDate: new Date("2011-11-18"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746987797/GodOfWar_hzewmg.jpg",
     },
     {
       title: "Fortnite",
@@ -48,6 +58,8 @@ async function seed() {
       price: 0.0,
       rating: 4.5,
       releaseDate: new Date("2017-07-25"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988026/Fortnite_tcb5zj.jpg",
     },
     {
       title: "Cyberpunk 2077",
@@ -55,6 +67,8 @@ async function seed() {
       price: 59.99,
       rating: 4.0,
       releaseDate: new Date("2020-12-10"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988146/Cyberpunk_2077_qefmsi.jpg",
     },
     {
       title: "Among Us",
@@ -63,6 +77,8 @@ async function seed() {
       price: 4.99,
       rating: 4.4,
       releaseDate: new Date("2018-06-15"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988217/Among_Us_w7iuyq.jpg",
     },
     {
       title: "Animal Crossing: New Horizons",
@@ -71,6 +87,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2020-03-20"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988326/Animal_Crossing_New_Horizons_g68epa.jpg",
     },
     {
       title: "Hades",
@@ -79,6 +97,8 @@ async function seed() {
       price: 24.99,
       rating: 4.9,
       releaseDate: new Date("2020-09-17"),
+      imageUrl:
+        "https://res.cloudinary.com/dducfnlfu/image/upload/v1746988459/Hades_zsaw9i.jpg",
     },
   ];
 
@@ -86,6 +106,100 @@ async function seed() {
     await prisma.game.create({ data: game });
   }
 
+  console.log("👾 Games created successfully");
+
+  const categories = [
+    {
+      title: "Action",
+
+      description:
+        "Games that require quick reflexes and hand-eye coordination.",
+    },
+
+    {
+      title: "Adventure",
+
+      description: "Games that involve exploration and puzzle-solving.",
+    },
+
+    {
+      title: "RPG",
+
+      description: "Games that focus on character development and story.",
+    },
+
+    {
+      title: "Simulation",
+
+      description: "Games that simulate real-world activities or systems.",
+    },
+
+    {
+      title: "Strategy",
+
+      description: "Games that require strategic thinking and planning.",
+    },
+
+    {
+      title: "Puzzle",
+
+      description:
+        "Games that challenge players with logic and problem-solving.",
+    },
+
+    {
+      title: "Sports",
+
+      description: "Games that simulate sports or physical activities.",
+    },
+
+    {
+      title: "Multiplayer",
+
+      description: "Games that can be played with multiple players.",
+    },
+
+    {
+      title: "Indie",
+
+      description: "Games developed by independent studios or individuals.",
+    },
+
+    {
+      title: "Horror",
+
+      description: "Games that aim to scare or unsettle players.",
+    },
+  ];
+
+  for (const category of categories) {
+    await prisma.category.create({ data: category });
+  }
+  console.log("🎮 Categories created successfully");
+  console.log("🔗 Linking each game to a category");
+
+  // Fetch games from the database
+
+  const dbGames = await prisma.game.findMany();
+
+  // Fetch categories from the database
+
+  const dbCategories = await prisma.category.findMany();
+
+  // Link each game to a category
+
+  for (const game of dbGames) {
+    const category =
+      dbCategories[Math.floor(Math.random() * dbCategories.length)];
+
+    await prisma.game.update({
+      where: { id: game.id },
+
+      data: { categoryId: category.id },
+    });
+  }
+
+  console.log("🔗 Games and categories linked successfully");
   console.log("Seed data created successfully");
 }
 
