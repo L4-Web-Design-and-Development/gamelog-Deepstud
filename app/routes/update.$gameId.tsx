@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
-import { Link } from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import { json, redirect, LoaderFunctionArgs } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import ImageUploader from "~/components/ImageUploader";
 import { useForm } from "react-hook-form";
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+
 export async function loader({ params }: LoaderFunctionArgs) {
   const prisma = new PrismaClient();
   const categories = await prisma.category.findMany({
