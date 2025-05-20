@@ -1,10 +1,8 @@
-import { useState, useRef } from "react";
-import { Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 
-export async function action({ params, request }: ActionFunctionArgs) {
+export async function action({ params }: ActionFunctionArgs) {
   const prisma = new PrismaClient();
   try {
     if (!params.gameId) {
