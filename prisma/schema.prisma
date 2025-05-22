@@ -9,14 +9,37 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
+//Games
 model Game {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @default(cuid())
   title       String
   description String
   price       Float
   rating      Float
   releaseDate DateTime
+  imageUrl    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
 }
+
+model Category {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  games       Game[]
+  }
+  
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  user      String
+  userProfileImage String  @default("https://res.cloudinary.com/dducfnlfu/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1746904701/userProfile_hmemyy.png")
+}
+
