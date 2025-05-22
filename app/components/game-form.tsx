@@ -13,6 +13,14 @@ interface GameFormProps {
   releaseDate: string;
   genre?: string;
   imageUrl: string;
+  defaultValues?: {
+    title?: string;
+    description?: string;
+    price?: number;
+    rating?: number;
+    releaseDate?: string;
+    categoryId?: string;
+  };
 }
 export default function GameForm(props: GameFormProps) {
   const [imageUrl, setImageUrl] = useState(props.imageUrl ?? "");
@@ -22,8 +30,9 @@ export default function GameForm(props: GameFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
+  } = useForm({
+    defaultValues: props.defaultValues || {},
+  });
   const onSubmit = () => {
     {
       ("Checks the image url if string is empty stop submission ");
@@ -81,6 +90,17 @@ export default function GameForm(props: GameFormProps) {
             </p>
           )}
         </div>
+
+        {imageUrl && (
+          <div className="mb-8">
+            <p className="text-slate-400 mb-2">Current Image:</p>
+            <img
+              src={imageUrl}
+              alt="Current game"
+              className="w-full h-48 object-cover rounded"
+            />
+          </div>
+        )}
 
         <div className="mb-8">
           <ImageUploader onImageUploaded={setImageUrl} />

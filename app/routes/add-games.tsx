@@ -45,6 +45,9 @@ export default function AddGame() {
   const { categories } = useLoaderData<typeof loader>();
   return (
     <div>
+      <h1 className="font-bold text-5xl text-center mb-10">
+        Add <span className="text-cyan-400">Game</span>
+      </h1>
       <GameForm categories={categories} imageUrl="" releaseDate="" genre="" />
     </div>
   );

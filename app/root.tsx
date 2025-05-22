@@ -5,8 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
-import type { MetaFunction, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, LinksFunction } from "@remix-run/node";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp } from "@clerk/remix";
 import stylesheet from "~/tailwind.css?url";
@@ -17,6 +16,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader: LoaderFunction = (args) => rootAuthLoader(args);
+export default ClerkApp(App);
 
 export function App() {
   return (
@@ -33,13 +33,11 @@ export function App() {
             <NavBar />
             <Outlet />
             <Footer />
+            <ScrollRestoration />
+            <Scripts />
           </div>
-          <ScrollRestoration />
-          <Scripts />
         </div>
       </body>
     </html>
   );
 }
-
-export default ClerkApp(App);
