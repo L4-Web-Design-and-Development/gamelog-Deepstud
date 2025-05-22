@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { getClerksUser } from "../utils/api.getClerksUser";
 
-//Prisma export to blogPost table table
+//Prisma export to blogPost table
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const title = formData.get("title") as string;

@@ -1,11 +1,4 @@
-import {
-  SignInButton,
-  SignOutButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/remix";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/remix";
 
 export default function login() {
   return (
