@@ -5,13 +5,17 @@ export default function HeroImage() {
 
       <div className="relative x-50 flex items-center h-full justify-start p-8">
         <div className="text-left">
-          <h1 className="text-4xl font-bold mb-4 text-white lg:text-8xl">
+          <h1 className="text-4xl font-bold mb-4 lg:text-8xl  text-shadow-sm">
             Track Your <br />
-            <span className="text-cyan-500">Gaming </span> <br />
+            <span className="bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent leading-none">
+              Gaming
+            </span>
+            <br />
             Journey With <br />
-            Easy
+            Ease
           </h1>
-          <button className=" border-2 border-cyan-600 hover:border-cyan-500 text-white font-bold   py-2 px-4 rounded">
+
+          <button className="w-full border-2 border-cyan-600 hover:border-cyan-500 text-cyan-500 font-bold   py-2 px-4 rounded">
             Add game
           </button>
         </div>

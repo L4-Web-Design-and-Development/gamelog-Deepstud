@@ -82,6 +82,7 @@ export default function ImageUploader({ onImageUploaded }: ImageUploaderProps) {
           onChange={handleFileChange}
           ref={fileInputRef}
           className="hidden"
+          aria-label="Upload image"
         />
 
         <button
